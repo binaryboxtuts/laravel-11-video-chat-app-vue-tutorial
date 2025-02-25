@@ -1,66 +1,129 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel 11 Video Chat Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a tutorial on video chat application built with **Laravel 11**, utilizing **Breeze** for authentication, **Reverb** for real-time WebSocket communication, **Vue.js** for the frontend, and **PeerJS** with **WebRTC** for peer-to-peer video streaming.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **User Authentication**: Implemented using Laravel Breeze.
+- **Real-Time Communication**: Managed through Laravel Reverb.
+- **Dynamic Frontend**: Built with Vue.js.
+- **Peer-to-Peer Video Streaming**: Enabled by PeerJS and WebRTC.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Prerequisites
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Before setting up the project, ensure you have the following installed:
 
-## Learning Laravel
+- [Composer](https://getcomposer.org/)
+- PHP >= 8.2
+- Node.js >= 18
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Follow these steps to set up the application:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone the Repository**:
 
-## Laravel Sponsors
+   ```bash
+   git clone https://github.com/binaryboxtuts/laravel-11-video-chat-app-vue-tutorial.git
+   cd laravel-11-video-chat-app-vue-tutorial
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install Dependencies**:
 
-### Premium Partners
+   ```bash
+   composer install
+   npm install
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. **Set Up Environment Variables**:
 
-## Contributing
+   Copy the `.env.example` file to `.env`:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   cp .env.example .env
+   ```
 
-## Code of Conduct
+   Update the `.env` file with your database configuration:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```env
+   BROADCAST_CONNECTION=reverb
 
-## Security Vulnerabilities
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=your_database_name
+   DB_USERNAME=your_database_username
+   DB_PASSWORD=your_database_password
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   REVERB_APP_ID=your_local_app_id
+   REVERB_APP_KEY=your_local_app_key
+   REVERB_APP_SECRET=your_local_app_secret
+   REVERB_HOST="localhost"
+   REVERB_PORT=8080
+   REVERB_SCHEME=http
 
-## License
+   VITE_APP_NAME="${APP_NAME}"
+   VITE_REVERB_APP_KEY="${REVERB_APP_KEY}"
+   VITE_REVERB_HOST="${REVERB_HOST}"
+   VITE_REVERB_PORT="${REVERB_PORT}"
+   VITE_REVERB_SCHEME="${REVERB_SCHEME}"
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. **Generate Application Key**:
+
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Run Migrations**:
+
+   ```bash
+   php artisan migrate
+   ```
+
+## Running the Application
+
+1. **Start the Laravel Development Server**:
+
+   ```bash
+   php artisan serve
+   ```
+
+2. **Start the Reverb WebSocket Server**:
+
+   ```bash
+   php artisan reverb:start
+   ```
+
+3. **Compile Frontend Assets**:
+
+   In a separate terminal window, run:
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Access the Application**:
+
+   Open your browser and navigate to:
+
+   ```
+   http://localhost:8000
+   ```
+
+## Usage
+
+- **Registration and Login**: Create a new account or log in with existing credentials.
+- **Contacts Page**: View and select contacts to initiate a video chat.
+- **Video Chat**: Start a video call with selected contacts using peer-to-peer connection.
+
+## Additional Resources
+
+For a detailed step-by-step guide on building this application, refer to the original tutorial by Binaryboxtuts:
+
+[Building A Video Chat App Using Laravel 11 (Breeze, Reverb, Vue, PeerJs, WebRTC)](https://www.binaryboxtuts.com/php-tutorials/laravel-tutorials/building-a-video-chat-app-using-laravel-11-breeze-reverb-vue-peerjs-webrtc/)
+
+
+---
+
+*Note: This README provides a concise overview of the project setup and usage. For comprehensive instructions and code examples, please refer to the original tutorial linked above.*
